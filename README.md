@@ -53,8 +53,8 @@ If you place the `remove_html` modifier after `smarttrim`, any HTML code in the 
 
 # Release history
 
-Version 1.1 - 2009/10/22 - Modified the arguments syntax. Added HTML::Defang to close HTML tags. Added POD.
-Version 1.0 - 2009/10/19 - First public version.
+* Version 1.1 - 2009/10/22 - Modified the arguments syntax. Added HTML::Defang to close HTML tags. Added POD.
+* Version 1.0 - 2009/10/19 - First public version.
 
 # TODO
 
