@@ -1,0 +1,12 @@
+name: SmartTrim
+id: smarttrim
+author_link: http://ubiquitic.com/
+author_name: François Nonnenmacher, Ubiquitic
+plugin_link: http://ubiquitic.com/software/smarttrim-movable-type-plugin.html
+description: A global modifier to trim strings by length without cutting words.
+version: 1.1
+tags:
+    modifier:
+        smarttrim:
+            label: smarttrim
+            handler: $SmartTrim::SmartTrim::Plugin::smarttrim
