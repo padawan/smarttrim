@@ -3,7 +3,7 @@
 # A Movable Type text filter to trim strings by length without cutting words.
 # http://ubiquitic.com/software/smarttrim-movable-type-plugin.html
 #
-# Release 1.1 — 2009/10/22
+# Release 1.1.2 — 2010/01/05 - Relax Defang behavior
 # ----------------------------------------------------------------------------
 # This free software is provided as-is WITHOUT ANY KIND OF GUARANTEE.
 # You may use it for commercial or personal use.
@@ -14,7 +14,7 @@
 
 package SmartTrim::Plugin;
 
-use strict;
+#use strict;
 use MT 4.0;
 use HTML::Defang;
 use MT::Util qw( remove_html );
@@ -44,9 +44,11 @@ sub smarttrim {
 	if (($end ne '') && ($result ne $s)) { $result .= $end; }
 
 	if ($result ne remove_html($result)) { # source contains HTML, let's make sure tags are closed
-		my @mismatched_tags = qw(table tbody thead tr td th font div span pre center p em strong i b q cite blockquote dl dd ul ol li h1 h2 h3 h4 h5 h6 fieldset tt);
-		my $Defang = HTML::Defang->new(	fix_mismatched_tags => 1, mismatched_tags_to_fix => \@mismatched_tags );
+MT->log({ message => 'Before Defang: '.$result });
+		my @mismatched_tags = qw(a img table tbody thead tr td th font div span pre center p em strong i b q cite blockquote dl dd ul ol li h1 h2 h3 h4 h5 h6 fieldset tt iframe);
+		my $Defang = HTML::Defang->new(context => $Self, fix_mismatched_tags => 1, mismatched_tags_to_fix => \@mismatched_tags, url_callback => \&DefangUrlCallback, attribs_callback => \&DefangAttribsCallback );
 		$result = $Defang->defang($result);
+MT->log({ message => 'After Defang: '.$result });
 	}
 
 	return $result;
@@ -69,6 +71,18 @@ sub cut_after {
     $s =~ s/^(.{$len}\S*)\s.*$/$1/s;
     return $s;
 }
+
+# Callback for custom handling URLs in HTML attributes as well as style tag/attribute declarations
+sub DefangUrlCallback {
+    my ($Self, $Defang, $lcTag, $lcAttrKey, $AttrValR, $AttributeHash, $HtmlR) = @_;
+    return 0; # Explicitly allow all URLs in tag attributes
+}
+
+# Callback for custom handling HTML tag attributes
+sub DefangAttribsCallback {
+    my ($Self, $Defang, $lcTag, $lcAttrKey, $AttrValR, $HtmlR) = @_;
+    return 0; # Don't Defang attributes
+  }
 
 =head1 NAME
 
