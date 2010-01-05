@@ -44,11 +44,9 @@ sub smarttrim {
 	if (($end ne '') && ($result ne $s)) { $result .= $end; }
 
 	if ($result ne remove_html($result)) { # source contains HTML, let's make sure tags are closed
-MT->log({ message => 'Before Defang: '.$result });
 		my @mismatched_tags = qw(a img table tbody thead tr td th font div span pre center p em strong i b q cite blockquote dl dd ul ol li h1 h2 h3 h4 h5 h6 fieldset tt iframe);
 		my $Defang = HTML::Defang->new(context => $Self, fix_mismatched_tags => 1, mismatched_tags_to_fix => \@mismatched_tags, url_callback => \&DefangUrlCallback, attribs_callback => \&DefangAttribsCallback );
 		$result = $Defang->defang($result);
-MT->log({ message => 'After Defang: '.$result });
 	}
 
 	return $result;

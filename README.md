@@ -36,7 +36,7 @@ You can use a single character such as the ellipsis (…) or a string such as " 
 # Caveats
 
 If _SmartTrim_ closes an unclosed HTML tag, the closing tag will be prefixed with the following comment: `<!-- close mismatch -->` (this is a feature of HTML::Defang).  
-HTML tags will be closed only if they belong to this hard-coded list: `table tbody thead tr td th font div span pre center p em strong i b q cite blockquote dl dd ul ol li h1 h2 h3 h4 h5 h6 fieldset tt`.
+HTML tags will be closed only if they belong to this hard-coded list: `a img table tbody thead tr td th font div span pre center p em strong i b q cite blockquote dl dd ul ol li h1 h2 h3 h4 h5 h6 fieldset tt`.
 
 If the source contains HTML, the length of the HTML code counts against the target length. This means that the _"visible"_ result may appear shorter than the target length. However, the actual length of the resulting string may be bigger than the expect length if unclosed tags are closed.
 
