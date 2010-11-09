@@ -4,7 +4,7 @@ author_link: http://ubiquitic.com/
 author_name: François Nonnenmacher, Ubiquitic
 plugin_link: http://ubiquitic.com/software/smarttrim-movable-type-plugin.html
 description: <__trans phrase="A global modifier to trim strings by length without cutting words.">
-version: 1.1.2
+version: 2.0
 tags:
     modifier:
         smarttrim:
